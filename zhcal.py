@@ -435,7 +435,7 @@ def get_festivals_date(year):
 def gregorian_to_zh(date):
     '''格里曆轉農曆
 
-    @param datetime.date date
+    @param datetime.date date (1900/1/1 - 2049/12/31)
     @return dict { lunar_month, lunar_date, is_leap_month, timestamp }
     '''
     ts = date2ts(date)
