@@ -105,12 +105,12 @@ tz = TZ()
 
 
 def check_year_range(year):
-    if year not in range(1900, 2050):
+    if year not in range(1901, 2050):
         raise NotImplementedError('Out of data range')
 
 
 def check_datetime_range(date_time):
-    if (date_time < datetime.datetime(1900, 1, 1, tzinfo=tz)
+    if (date_time < datetime.datetime(1901, 1, 1, tzinfo=tz)
             or date_time > datetime.datetime(2049, 12, 31, tzinfo=tz)):
         raise NotImplementedError('Out of data range')
 
@@ -185,7 +185,7 @@ def get_solar_term_date(index, year):
     Algorithm from Sean Lin (sean.o4u.com)
 
     @param int index in range(0, 24)
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @return datetime.date
     '''
     return datetime.date(year, index//2 + 1, SOLAR_TERM_BASE[index] + int(
@@ -196,7 +196,7 @@ def get_solar_term_date(index, year):
 def get_leap_month(year):
     '''返回當年閏月，0 代表沒有閏月
 
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @return int in range(0, 13)
     '''
     month = LUNAR_MONTH_LENGTH[year-1900] & 0xf
@@ -210,7 +210,7 @@ def get_month_day_count(month, year):
     '''返回當年當月的天數
 
     @param int month in range(0, 13)
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @return int in range(29, 31)
     '''
     if month:
@@ -228,7 +228,7 @@ def get_month_day_count(month, year):
 def build_calendar(year):
     '''生成農曆年曆數據
 
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @return list<
         dict { lunar_month, lunar_date, is_leap_month, timestamp }
     >
@@ -315,7 +315,7 @@ def get_year_cycle_index_approx(year):
 def get_year_cycle_index(date):
     '''干支紀年（返回六十甲子索引）
 
-    @param datetime.date date (1900/1/1 - 2049/12/31)
+    @param datetime.date date (1901/1/1 - 2049/12/31)
     @return int in range(0, 60)
     '''
     index = get_year_cycle_index_approx(date.year)
@@ -327,7 +327,7 @@ def get_year_cycle_index(date):
 def get_month_cycle_index(date):
     '''干支紀月（返回六十甲子索引）
 
-    @param datetime.date date (1900/1/1 - 2049/12/31)
+    @param datetime.date date (1901/1/1 - 2049/12/31)
     @return int in range(0, 60)
     '''
     start_index = (TS_ZERO_MONTH_CYCLE_INDEX + (date.year - 1970) * 12) % 60
@@ -384,7 +384,7 @@ def get_quarter(time):
 def get_zodiac(date):
     '''返回生肖索引（以正月初一為轉換點）
 
-    @param datetime.date date (1900/1/1 - 2049/12/31)
+    @param datetime.date date (1901/1/1 - 2049/12/31)
     @return int in range(0, 12)
     '''
     boundary = zh_to_gregorian(date.year, 1, 1, False)
@@ -397,7 +397,7 @@ def get_zodiac(date):
 def get_festivals_date(year):
     '''返回當年農曆節日的格里曆日期
 
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @return list<
         dict { date, name }
     >
@@ -448,7 +448,7 @@ def gregorian_to_zh(date):
 def zh_to_gregorian(year, lunar_month, lunar_date, is_leap_month):
     '''農曆轉格里曆
 
-    @param int year in range(1900, 2050)
+    @param int year in range(1901, 2050)
     @param int lunar_month in range(1, 13)
     @param int lunar_date in range(1, 31)
     @param bool is_leap_month
