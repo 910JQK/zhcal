@@ -46,6 +46,10 @@ FESTIVALS = [
         'name': '元宵'
     },
     {
+        'date': (3, 3),
+        'name': '上巳'
+    },
+    {
         'date': (5, 5),
         'name': '端午'
     },
@@ -66,12 +70,39 @@ FESTIVALS = [
         'name': '重陽'
     },
     {
+        'date': (10, 15),
+        'name': '下元'
+    },
+    {
         'date': (12, 8),
         'name': '臘八'
     },
     {
         'date': (12, 23),
         'name': '小年'
+    }
+]
+
+SOLAR_FESTIVALS = [
+    {
+        'index': 6,
+        'delta': -1,
+        'name': '寒食'
+    },
+    {
+        'index': 6,
+        'delta': 0,
+        'name': '清明'
+    },
+    {
+        'index': 11,
+        'delta': 0,
+        'name': '夏至'
+    },
+    {
+        'index': 23,
+        'delta': 0,
+        'name': '冬至'
     }
 ]
 
@@ -532,6 +563,17 @@ def print_festivals(year):
             num_prepend_blank(festival['date'].month),
             num_prepend_blank(festival['date'].day),
             WEEKDAYS[festival['date'].weekday()]
+        ))
+    print('')
+    for festival in SOLAR_FESTIVALS:
+        ts = date2ts(get_solar_term_date(festival['index'], year))
+        ts += festival['delta'] * 86400
+        date_time = datetime.datetime.utcfromtimestamp(ts)
+        print('{0} {1} 月 {2} 日  週{3}'.format(
+            festival['name'],
+            num_prepend_blank(date_time.month),
+            num_prepend_blank(date_time.day),
+            WEEKDAYS[date_time.weekday()]
         ))
 
 
